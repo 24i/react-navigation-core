@@ -197,8 +197,9 @@ export default (routeConfigs, stackConfig = {}) => {
 
     getStateForAction(action, state) {
       // Set up the initial state if needed
-      if (!state) {
-        return getInitialState(action);
+      const initState = getInitialState(action);
+      if (!state || (action.type === NavigationActions.INIT && state.index !== 0)) {
+        return initState;
       }
 
       const activeChildRoute = state.routes[state.index];
